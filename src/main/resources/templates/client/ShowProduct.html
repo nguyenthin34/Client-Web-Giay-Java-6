@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http:/www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{client/page.html}">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="list_product.css">
+
+</head>
+<body>
+<div layout:fragment="content">
+<div class="container d-flex justify-content-center mt-50 mb-50">
+    <div class="row">
+        <div class="col-md-4 mt-2" th:each="item : ${productPage}">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-img-actions">
+                        <img th:src="${item.commodity.image !=null? '/site/product/images/' + item.commodity.image : '/images/log.png'}"
+                             class="card-img img-fluid" width="96" height="350" alt="">
+                    </div>
+                </div>
+                <div class="card-body bg-light text-center">
+                    <div class="mb-2">
+                        <h6 class="font-weight-semibold mb-2">
+                            <a href="#" class="text-default mb-2"
+                             data-abc="true">[[${item.commodity.name}]]</a> </h6> <a href="#"
+                         class="text-muted" data-abc="true">Laptops & Notebooks</a>
+                    </div>
+                    <h3 class="mb-0 font-weight-semibold">[[item.price]]</h3>
+                    <button type="button" class="btn bg-cart" th:attr="ng-click=@{|cart.add(${item.product_id})|}">
+                        <i class="fa fa-cart-plus mr-2"></i> Add to cart</button>
+                </div>
+                </div>
+        </div>
+
+
+
+
+    </div>
+</div>
+</div>
+</body>
+</html>

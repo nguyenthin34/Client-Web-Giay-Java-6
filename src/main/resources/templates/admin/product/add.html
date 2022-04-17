@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http:/www.thymeleaf.org" xmlns:layout="http:/www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/homepage.html}">
+
+<head>
+
+</head>
+
+<body>
+<form action="" method="post">
+    <div class="card">
+        <div class="card-header">
+            <h1>Add New Product</h1>
+        </div>
+        <div class="card-body">
+            <div class="form-group">
+                <label for="colorID">Product ID:</label>
+                <input type="text" class="form-control" id="roleID" aria-describedby="colorIDHid"
+                       placeholder="Product ID" readonly />
+
+            </div>
+            <select class="form-select" name="colorId" >
+                aria-label="Default select example">
+                <option th:each="color : ${commodities}" th:value="${color.colorId}" th:text="${color.name}"
+                        >Open this commodities menu</option>
+            </select>
+            <select class="form-select" name="colorId" >
+                aria-label="Default select example">
+                <option th:each="color : ${colors}" th:value="${color.colorId}" th:text="${color.name}"
+                        >Open this color menu</option>
+            </select>
+            <select class="form-select" name="sizeId"  aria-label="Default select example">
+                <option th:each="size : ${sizes}" th:value="${size.sizeId}" th:text="${size.name}"
+                        >Open this size menu</option>
+            </select>
+            <div class="form-group">
+                <label for="name">Unit Price:</label>
+                <input type="number" class="form-control" id="name" aria-describedby="nameHid" placeholder="Unit Price" />
+                <small id="nameHid" class="form-text text-muted">Unit Price is invalid</small>
+            </div>
+            <div class="form-group">
+                <label for="name">Price:</label>
+                <input type="number" class="form-control" id="name" aria-describedby="nameHid" placeholder="Price" />
+
+            </div>
+
+            <div class="form-group">
+                <label for="name">Quantity:</label>
+                <input type="number" class="form-control" id="name" aria-describedby="nameHid" placeholder="Quantity" />
+
+            </div>
+        </div>
+        <div class="card-footer">
+            <button type="button" class="btn btn-primary" style="margin-right: 10px;"><i class="fa fa-save mr-2"
+                                                                                         aria-hidden="true"></i>Save</button>
+            <button type="reset" class="btn btn-info"><i class="fa fa-rev mr-2"
+                                                         aria-hidden="true"></i>Reset</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>

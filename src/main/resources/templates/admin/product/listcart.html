@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/homepage.html}">
+
+<head>
+</head>
+
+<body>
+<section class="row" layout:fragment="content">
+  <div class="card">
+    <div class="card-header">
+      Shopping Cart
+      <div th:if="${message != null}" class="alert alert-primary">
+        <i>[[${message}]]</i>
+      </div>
+      <div th:if="${param.message != null}" class="alert alert-primary">
+        <i>[[${param.message}]]</i>
+      </div>
+    </div>
+    <div class="card-body">
+      <table class="table table-striped">
+        <tr>
+          <th></th>
+          <th scope="col">Name</th>
+          <th scope="col">Unit Price</th>
+          <th scope="col">Quantity</th>
+          <th scope="col">Color</th>
+          <th scope="col">Size</th>
+          <th scope="col"></th>
+        </tr>
+        <tr th:each="item : ${cartItems}">
+          <form action="/product/updateCart" method="post" >
+            <td>
+              <input type="hidden" name="id" th:value="${item.id}">
+              <img th:src="${item.image!=null? '/product/images/' + item.image : '/images/log.png'}" alt="" style="width: 100px;height: 100px;">
+            </td>
+            <td>
+              <input type="hidden" th:value="${item.commodityId}" name="commodityId" />
+              [[${item.name}]]
+            </td>
+            <td>
+              <input type="number" name="unitPrice" th:value="${item.unitPrice}" onblur="this.form.submit()">
+            </td>
+            <td>
+              <input type="number" name="quantity"  th:value="${item.quantity}" onblur="this.form.submit()">
+            </td>
+            <td>
+              <select  class="form-select" name="colorId" onblur="this.form.submit()">
+                aria-label="Default select example">
+                <option  th:each="color : ${colors}" th:value="${color.colorId}"
+                         th:text="${color.name}" th:selected="${color.colorId == item.colorId}"
+                         >Open this color menu</option>
+              </select>
+            </td>
+            <td>
+              <select class="form-select" name="sizeId" onblur="this.form.submit()"
+                      aria-label="Default select example">
+                <option  th:each="size : ${sizes}" th:value="${size.sizeId}"
+                         th:text="${size.name}" th:selected="${size.sizeId == item.sizeId}"
+                         >Open this size menu</option>
+              </select>
+            </td>
+            <td>
+              <a th:href="'/product/remove/' + ${item.id}" class="btn btn-danger">Remove</a>
+            </td>
+          </form>
+        </tr>
+      </table>
+    </div>
+    <div class="card-footer">
+      <form th:action="@{/product/saveCart}" method="post">
+        <div class="row">
+            <button class="btn btn-primary" style="margin-top: 10px" >Save</button>
+        </div>
+      </form>
+    </div>
+
+  </div>
+</section>
+</body>
+
+</html>

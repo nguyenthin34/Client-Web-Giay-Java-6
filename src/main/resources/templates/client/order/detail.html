@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http:/www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{client/page.html}">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<main layout:fragment="content">
+    <div class="card card-primary"></div>
+    <div class="card-header">ORDER INFORMATION</div>
+    <div class="card-body">
+        <div class="row" th:object="${order}">
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <div>Order Number:</div>
+                    <input th:field="*{order_id}" class="form-control" readonly>
+                </div>
+                <div class="form-group col-sm-6">
+                    <div>Purchaser:</div>
+                    <input th:field="*{user.username}" class="form-control" readonly>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <div>Purchased Date:</div>
+                    <input th:field="*{createDate}" class="form-control" readonly>
+                </div>
+                <div class="form-group col-md-6">
+                    <div>Shipping Address:</div>
+                    <textarea th:field="*{address}" class="form-control" readonly></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="card">
+        <div class="card-header">Order Lines</div>
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">Order Id</th>
+                <th scope="col">Creator</th>
+                <th scope="col">Create Date</th>
+                <th scope="col">Total Amount</th>
+                <th scope="col">Phone</th>
+                <th scope="col">Address</th>
+                <th scope="col">Receiver</th>
+                <th scope="col">Email</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${orderPage}">
+                <td th:text="${item.order_id}"></td>
+                <td th:text="${item.user.fullname}"></td>
+                <td th:text="${item.createDate}"></td>
+                <td th:text="${item.totalAmount}"></td>
+                <td th:text="${item.phone}"></td>
+                <td th:text="${item.address}"></td>
+                <td th:text="${item.name}"></td>
+                <td th:text="${item.email}"></td>
+                <td>
+                    <a th:href="'/order/detail/' + ${item.order_id}">
+                        <i class="fa-solid fa-magnifying-glass"></i>
+                    </a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</main>
+</body>
+</html>
